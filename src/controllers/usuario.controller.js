@@ -1,5 +1,4 @@
 // FUNCIONAMIENTO DE TODAS LAS RUTAS DE USUARIO
-
 const { response } = require('express');
 const { Pool } = require('pg');
 const globalConstants = require('../const/globalConstants.js')
@@ -27,10 +26,10 @@ module.exports = {
             try {
                 data = await pool.query(`select * from login('${rut}')`);
             } catch (e) {
-                res.json({message: e})
+                res.json({ message: e })
             }
 
-            if (data.rows.length == 0){
+            if (data.rows.length == 0) {
                 res.json({ message: 'rut incorrecto' });
             }
 
@@ -38,7 +37,7 @@ module.exports = {
             let autenticado = await bcrypt.compare(password, user.password);
 
             if (autenticado) {
-                    
+
                 var fechaActual = new Date();
                 fechaActual.setHours(fechaActual.getHours() + 1);
 
@@ -53,7 +52,7 @@ module.exports = {
                     expiratedPassword: user.expirated
                 })
             }
-            else{
+            else {
                 res.json({ message: 'contraseña incorrecta' });
             }
         }

@@ -4,8 +4,27 @@ const express = require('express') // importar express
 const routerConfig = require('./routes/index.routes.js') // importar el archivo de rutas
 const globalConstants = require('./const/globalConstants.js') // importar el archivo de constantes globales
 const cors = require('cors')
+const { createHandler } = require("graphql-http/lib/use/express");
+const { ruruHTML } = require("ruru/server");
+const { schema, root } = require('./schema.js');
+
 
 const configuracionApi = (app) => { // configurar la api
+
+    app.all(
+        "/graphql",
+        createHandler({
+            schema: schema,
+            rootValue: root,
+        })
+    )
+
+    // Serve the GraphiQL IDE.
+    app.get("/", (_req, res) => {
+        res.type("html")
+        res.end(ruruHTML({ endpoint: "/graphql" }))
+    })
+
     // middlwares
     app.use(express.json()) // para que la api pueda recibir json
     app.use(express.urlencoded({ extended: true })) // para que la api pueda recibir formularios
