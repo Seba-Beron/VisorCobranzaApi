@@ -10,7 +10,7 @@ const pool = new Pool({
     user: globalConstants.USER,
     password: globalConstants.PASSWORD,
     database: globalConstants.DATABASE,
-    port: globalConstants.PORT
+    port: globalConstants.DB_PORT
 })
 
 module.exports = {
@@ -81,7 +81,7 @@ module.exports = {
 
     prueba: async (req, res) => {
         try {
-            const response = await pool.query('select prueba3()');
+            const response = await pool.query('select * from prueba3()');
             console.log(response);
             res.json(response.rows);
         } catch (e) {

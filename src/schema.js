@@ -23,6 +23,14 @@ module.exports = {
 
     schema: buildSchema(`
 
+    type User {
+        rut: Int!
+        name: String!
+        email: String
+        birthdate: Date
+        password: String!
+    }
+
     type Person {
         id: ID!
         name: String!
@@ -37,6 +45,7 @@ module.exports = {
         personCount: Int!
         allPersons(phone: YesNo): [Person]!
         findPerson(name: String!): Person!
+        allUsers: [User!]
     }
 
     type Mutation {
@@ -84,6 +93,9 @@ module.exports = {
             const p = { ...person, id: uuid() }
             persons.push(p)
             return p
+        },
+        allUsers: () => {
+            
         },
         editNumber: ({ name, phone }) => {
             const personIndex = persons.findIndex(person => person.name == name)
