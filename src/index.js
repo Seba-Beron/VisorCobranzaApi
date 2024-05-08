@@ -1,13 +1,12 @@
 // TIENE TODA LA CONFIGURACION DE LA API
 
-const express = require('express') // importar express
-const routerConfig = require('./routes/index.routes.js') // importar el archivo de rutas
-const globalConstants = require('./const/globalConstants.js') // importar el archivo de constantes globales
+const express = require('express')
+const routerConfig = require('./routes/index.routes.js')
+const globalConstants = require('./const/globalConstants.js')
 const cors = require('cors')
-const { createHandler } = require("graphql-http/lib/use/express");
-const { ruruHTML } = require("ruru/server");
-const { schema, root } = require('./schema.js');
-
+const { createHandler } = require("graphql-http/lib/use/express")
+const { ruruHTML } = require("ruru/server")
+const { schema, root } = require('./schema.js')
 
 const configuracionApi = (app) => { // configurar la api
 

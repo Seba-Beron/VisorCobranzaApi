@@ -1,5 +1,5 @@
 const globalConstants = require('../const/globalConstants.js')
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken')
 
 function verifyToken(req, res, next) {
 

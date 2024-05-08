@@ -1,8 +1,7 @@
 // SE ENCARGA DE CONECTAR TODAS LAS RUTAS
 
-const { Router } = require("express") // importar express
-
-const usuarioRoutes = require("./usuario.routes") // importar el archivo de rutas de usuarios
+const { Router } = require("express")
+const usuarioRoutes = require("./usuario.routes")
 const { verificarToken } = require("../middlewares/seguridad")
 
 const rutas_init = () => { // aca se ponen todas las rutas que existen

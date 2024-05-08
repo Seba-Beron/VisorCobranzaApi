@@ -1,9 +1,8 @@
 // FUNCIONAMIENTO DE TODAS LAS RUTAS DE USUARIO
-const { response } = require('express');
-const { Pool } = require('pg');
+const bcrypt = require('bcryptjs')
 const globalConstants = require('../const/globalConstants.js')
-const jwt = require('jsonwebtoken')
-var bcrypt = require('bcryptjs');
+const utils = require('../utils.js')
+const { Pool } = require('pg')
 
 const pool = new Pool({
     host: globalConstants.HOST,
@@ -37,18 +36,8 @@ module.exports = {
             let autenticado = await bcrypt.compare(password, user.password);
 
             if (autenticado) {
-
-                var fechaActual = new Date();
-                fechaActual.setHours(fechaActual.getHours() + 1);
-
-                const userForToken = {
-                    rut: rut,
-                    username: user.name,
-                    expirationDate: fechaActual
-                }
-
                 res.json({
-                    token: jwt.sign(userForToken, globalConstants.SECRETWORD),
+                    token: utils.createToken(rut, user.name),
                     expiratedPassword: user.expirated
                 })
             }
@@ -82,7 +71,7 @@ module.exports = {
     prueba: async (req, res) => {
         try {
             const response = await pool.query('select * from prueba3()');
-            console.log(response);
+            //console.log(response);
             res.json(response.rows);
         } catch (e) {
             res.json({
