@@ -1,23 +1,9 @@
 pipeline {
-    agent any
-
+    agent { docker { image 'node:20.11.1-alpine3.19' } }
     stages {
-        stage('Build') {
+        stage('build') {
             steps {
-                echo 'Building..'
-                bat 'npm install'
-                bat 'node --version'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-                bat 'npm test'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+                sh 'node --version'
             }
         }
     }
