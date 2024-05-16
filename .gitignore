@@ -42,4 +42,4 @@ testem.log
 Thumbs.db
 
 # token keys
-/jwt_keys
+jwt_keys/

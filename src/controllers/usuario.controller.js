@@ -17,7 +17,7 @@ module.exports = {
     login: async (req, res) => {
 
         const { rut, password } = req.body;
-        if (!rut || !password) return res.json({ message: 'Datos incompletos' })
+        if (!rut || !password) return res.json({ message: 'incomplete data' })
 
         try {
             data = await pool.query(`select * from login('${rut}')`);
@@ -25,12 +25,12 @@ module.exports = {
             return res.json({ message: e })
         }
 
-        if (data.rows.length == 0) return res.json({ message: 'rut incorrecto' })
+        if (data.rows.length == 0) return res.json({ message: 'incorrect rut' })
 
         let user = data.rows[0];
         let autenticado = await bcrypt.compare(password, user.password);
 
-        if (!autenticado) return res.json({ message: 'contraseña incorrecta' });
+        if (!autenticado) return res.json({ message: 'incorrect password' });
 
         return res.json({
             token: createToken(rut, user.name),
@@ -41,14 +41,14 @@ module.exports = {
     register: async (req, res) => {
         let { name, rut, email, birthdate, password } = req.body;
 
-        if (!name, !rut, !email, !birthdate, !password) return res.json({ message: 'Datos incompletos' })
+        if (!name, !rut, !email, !birthdate, !password) return res.json({ message: 'incomplete data' })
 
         let passHash = await bcrypt.hash(password, 8);
         let query = `call insertuser('${name}', '${rut}', '${email}', '${birthdate}', '${passHash}')`;
 
         try {
             const response = await pool.query(query);
-            return res.json({ message: 'Usuario creado con exito' });
+            return res.json({ message: 'user created successfully' });
         } catch (e) {
             return res.json({ message: e })
         }
