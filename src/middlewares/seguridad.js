@@ -1,7 +1,7 @@
-const globalConstants = require('../const/globalConstants.js')
+const { verifyToken } = require('../utils.js')
 const jwt = require('jsonwebtoken')
 
-function verifyToken(req, res, next) {
+function verifyAuth(req, res, next) {
 
     const Authorization = req.header('Authorization');
     let token = null
@@ -11,17 +11,15 @@ function verifyToken(req, res, next) {
     if (!token) return res.status(401).json({ error: 'Access denied' });
 
     try {
-        const decoded = jwt.verify(token, globalConstants.SECRETWORD);
+        const decoded = verifyToken(token);
 
-        req.userId = decoded.userId;
-
-        if (decoded.expirationDate < new Date()) return res.status(401).json({ error: 'Token expirated' });
+        if (decoded.tokenExp) return res.status(401).json({ error: 'Token expirated' });
 
         next();
 
     } catch (error) {
-        res.status(401).json({ error: 'Invalid token' });
+        return res.status(401).json({ error: 'Invalid token' });
     }
 };
 
-module.exports = verifyToken;
+module.exports = verifyAuth;

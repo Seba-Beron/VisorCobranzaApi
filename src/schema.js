@@ -87,7 +87,7 @@ module.exports = {
 
     root: {
         hello() {
-            return "Hello world!!"
+            return "Hello world! hola mundo"
         },
         personCount: () => persons.length,
         allPersons: ({ phone }) => {

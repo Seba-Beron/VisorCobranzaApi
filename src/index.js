@@ -2,11 +2,15 @@
 
 const express = require('express')
 const routerConfig = require('./routes/index.routes.js')
-const globalConstants = require('./const/globalConstants.js')
+const { PORT } = require('./const/globalConstants.js')
 const cors = require('cors')
 const { createHandler } = require("graphql-http/lib/use/express")
 const { ruruHTML } = require("ruru/server")
 const { schema, root } = require('./schema.js')
+
+//const { setJWT_KEYS } = require('../jwt_keys/jwt.js')
+
+//setJWT_KEYS();
 
 const configuracionApi = (app) => { // configurar la api
 
@@ -41,8 +45,8 @@ const init = () => {
     const app = express() // crear una instancia de express
     configuracionApi(app) // configurar la api
     configuracionRouter(app) // configurar las rutas
-    app.listen(globalConstants.PORT) // escuchar en el puerto
-    console.log('La aplicacion se está ejecutando en el puerto:' + globalConstants.PORT) // mostrar en consola que se está ejecutando la aplicación en el puerto correspondiente
+    app.listen(PORT) // escuchar en el puerto
+    console.log('La aplicacion se está ejecutando en el puerto:' + PORT)
 };
 
 init(); // iniciar la aplicación

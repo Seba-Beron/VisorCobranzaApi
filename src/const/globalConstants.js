@@ -11,10 +11,7 @@ module.exports = {
     PASSWORD: process.env.PASSWORD,
     DATABASE: process.env.DATABASE,
 
-    PIVATEKEY: process.env.PIVATEKEY,
-
-    ACCESS_TOKEN_EXPIRES_IN: process.env.ACCESS_TOKEN_EXPIRES_IN,
-    REFRESH_TOKEN_EXPIRES_IN: process.env.REFRESH_TOKEN_EXPIRES_IN,
-    ACCESS_TOKEN_PRIVATE_KEY: process.env.ACCESS_TOKEN_PRIVATE_KEY,
-    ACCESS_TOKEN_PUBLIC_KEY: process.env.ACCESS_TOKEN_PUBLIC_KEY
+    SECRET_KEY: process.env.SECRET_KEY,
+    TOKEN_TIME: process.env.TOKEN_TIME,
+    ISSUER: process.env.ISSUER
 }

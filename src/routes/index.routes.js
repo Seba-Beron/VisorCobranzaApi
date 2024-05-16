@@ -2,7 +2,6 @@
 
 const { Router } = require("express")
 const usuarioRoutes = require("./usuario.routes")
-const { verificarToken } = require("../middlewares/seguridad")
 
 const rutas_init = () => { // aca se ponen todas las rutas que existen
   const router = Router() // crear una instancia de express.Router()
