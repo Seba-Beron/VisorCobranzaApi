@@ -39,16 +39,16 @@ module.exports = {
     },
 
     register: async (req, res) => {
-        let { name, rut, email, birthdate, password } = req.body;
+        const { rut, name, password, birthdate, email, phone, address, role } = req.body;
 
-        if (!name, !rut, !email, !birthdate, !password) return res.json({ message: 'incomplete data' })
+        if (!rut, !name, !password, !birthdate, !email, !phone, !address, !role) return res.json({ message: 'incomplete data' })
 
-        let passHash = await bcrypt.hash(password, 8);
-        let query = `call insertuser('${name}', '${rut}', '${email}', '${birthdate}', '${passHash}')`;
+        const passHash = await bcrypt.hash(password, 8);
+        const query = `call new_user('${rut}', '${name}', '${email}', '${phone}', '${birthdate}', '${passHash}', '${address}', ${role})`;
 
         try {
             const response = await pool.query(query);
-            return res.json({ message: 'user created successfully' });
+            return res.json({ message: 'user created' });
         } catch (e) {
             return res.json({ message: e })
         }
